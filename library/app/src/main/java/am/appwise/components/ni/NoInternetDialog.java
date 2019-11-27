@@ -489,14 +489,11 @@ public class NoInternetDialog extends Dialog implements View.OnClickListener, Co
                 getContext().getResources().getDimensionPixelSize(R.dimen.button_width),
                 getContext().getResources().getDimensionPixelSize(R.dimen.button_width) + 10,
                 getContext().getResources().getDimensionPixelSize(R.dimen.button_size2));
-        widthAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float value = (float) valueAnimator.getAnimatedValue();
-                RelativeLayout.LayoutParams lpWifi = (RelativeLayout.LayoutParams) wifiOn.getLayoutParams();
-                lpWifi.width = (int) value;
-                wifiOn.setLayoutParams(lpWifi);
-            }
+        widthAnimator.addUpdateListener(valueAnimator -> {
+            float value = (float) valueAnimator.getAnimatedValue();
+            ConstraintLayout.LayoutParams lpWifi = (ConstraintLayout.LayoutParams) wifiOn.getLayoutParams();
+            lpWifi.width = (int) value;
+            wifiOn.setLayoutParams(lpWifi);
         });
         ObjectAnimator translateXAnimatorWifi = ObjectAnimator.ofFloat(wifiOn, "translationX", 1f, 110f);
         ObjectAnimator translateYAnimatorWifi = ObjectAnimator.ofFloat(wifiOn, "translationY", 1f, 0f);
@@ -606,7 +603,7 @@ public class NoInternetDialog extends Dialog implements View.OnClickListener, Co
         }
         if (wifiOn != null) {
             wifiOn.setVisibility(View.VISIBLE);
-            RelativeLayout.LayoutParams wifiParams = (RelativeLayout.LayoutParams) wifiOn.getLayoutParams();
+            ConstraintLayout.LayoutParams wifiParams = (ConstraintLayout.LayoutParams) wifiOn.getLayoutParams();
             wifiParams.width = getContext().getResources().getDimensionPixelSize(R.dimen.button_width);
             wifiOn.setLayoutParams(wifiParams);
             wifiOn.setTextSize(13f);
